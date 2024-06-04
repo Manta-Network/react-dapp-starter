@@ -1,5 +1,5 @@
 export default {
-  MANTA_PACIFIC_CHAIN: {
+  MANTA_CHAIN: {
     id: 169,
     name: "Manta Pacific",
     network: "manta pacific",
@@ -31,6 +31,6 @@ export default {
     iconUrl: "https://app.manta.network/favicon.ico",
   },
   CONTRACTS: {
-    XCM: '0x677ff73D25E4AcEb535d9994366B1B1f08227295',
-  }
+    XCM: "0x677ff73D25E4AcEb535d9994366B1B1f08227295",
+  },
 };

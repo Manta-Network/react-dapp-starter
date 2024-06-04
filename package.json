@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@web3modal/wagmi": "3.5.7",
+    "wagmi": "1.4.13"
   },
   "devDependencies": {
     "@types/node": "^20.12.5",
