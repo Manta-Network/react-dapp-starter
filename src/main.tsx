@@ -8,7 +8,7 @@ import { publicProvider } from 'wagmi/providers/public';
 import AppRouter from './AppRouter.tsx';
 import { appConfig } from '@/config/appConfig/index.ts';
 import walletConnectConfig from '@/config/walletConnectConfig/index.ts';
-import './index.css';
+import './index.scss';
 
 const { projectId, metadata, walletIds } = walletConnectConfig;
 const mantaChain = appConfig.MANTA_CHAIN;
