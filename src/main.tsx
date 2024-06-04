@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { publicProvider } from "wagmi/providers/public";
-import App from "./App.tsx";
+import AppRouter from "./AppRouter.tsx";
 import { appConfig } from "@/config/appConfig/index.ts";
 import walletConnectConfig from "@/config/walletConnectConfig/index.ts";
 import "./index.css";
@@ -44,7 +44,7 @@ createWeb3Modal({
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <WagmiConfig config={wagmiConfig}>
-      <App />
+      <AppRouter />
     </WagmiConfig>
   </React.StrictMode>
 );
