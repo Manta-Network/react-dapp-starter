@@ -1,47 +1,50 @@
-import { EIP6963Connector, walletConnectProvider } from "@web3modal/wagmi";
-import { createWeb3Modal } from "@web3modal/wagmi/react";
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { WagmiConfig, configureChains, createConfig } from "wagmi";
-import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { publicProvider } from "wagmi/providers/public";
-import AppRouter from "./AppRouter.tsx";
-import { appConfig } from "@/config/appConfig/index.ts";
-import walletConnectConfig from "@/config/walletConnectConfig/index.ts";
-import "./index.css";
+import { EIP6963Connector, walletConnectProvider } from '@web3modal/wagmi';
+import { createWeb3Modal } from '@web3modal/wagmi/react';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { WagmiConfig, configureChains, createConfig } from 'wagmi';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { publicProvider } from 'wagmi/providers/public';
+import AppRouter from './AppRouter.tsx';
+import { appConfig } from '@/config/appConfig/index.ts';
+import walletConnectConfig from '@/config/walletConnectConfig/index.ts';
+import './index.css';
 
 const { projectId, metadata, walletIds } = walletConnectConfig;
 const mantaChain = appConfig.MANTA_CHAIN;
 
-const { chains, publicClient, webSocketPublicClient } = configureChains([mantaChain], [walletConnectProvider({ projectId }), publicProvider()]);
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [mantaChain],
+  [walletConnectProvider({ projectId }), publicProvider()]
+);
 
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors: [
     new WalletConnectConnector({
       chains,
-      options: { projectId, showQrModal: false, metadata },
+      options: { projectId, showQrModal: false, metadata }
     }),
-    new EIP6963Connector({ chains }),
+    new EIP6963Connector({ chains })
   ],
   publicClient,
-  webSocketPublicClient,
+  webSocketPublicClient
 });
 
 createWeb3Modal({
-  themeMode: "light",
+  themeMode: 'light',
   themeVariables: {
-    "--w3m-font-family": "Tomorrow",
+    '--w3m-font-family': 'Tomorrow'
   },
   wagmiConfig,
   projectId,
   chains,
   defaultChain: mantaChain,
   featuredWalletIds: walletIds,
-  includeWalletIds: walletIds,
+  includeWalletIds: walletIds
 });
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <WagmiConfig config={wagmiConfig}>
       <AppRouter />

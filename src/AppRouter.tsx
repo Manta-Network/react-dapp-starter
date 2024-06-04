@@ -1,5 +1,10 @@
-import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Home from "@/pages/Home";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes
+} from 'react-router-dom';
+import Home from '@/pages/Home';
 
 function AppRouter() {
   return (

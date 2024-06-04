@@ -1,11 +1,11 @@
-import developmentConfig from "./development.config";
-import previewConfig from "./preview.config";
-import productionConfig from "./production.config";
+import developmentConfig from './development.config';
+import previewConfig from './preview.config';
+import productionConfig from './production.config';
 
 const envConfig = {
   production: productionConfig,
   preview: previewConfig,
-  development: developmentConfig,
+  development: developmentConfig
 };
 
 export const __ENV__ = __APP_ENV__.VERCEL_ENV;

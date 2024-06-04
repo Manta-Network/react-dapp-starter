@@ -1,4 +1,4 @@
 interface Demo {
-    name: string;
-    age: number;
+  name: string;
+  age: number;
 }
