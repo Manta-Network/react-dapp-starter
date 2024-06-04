@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "typeRoots": ["./typeRoots"],
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -26,6 +27,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "typeRoots"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
