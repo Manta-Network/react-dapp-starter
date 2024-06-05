@@ -10,7 +10,7 @@ import { appConfig } from '@/config/appConfig/index.ts';
 import walletConnectConfig from '@/config/walletConnectConfig/index.ts';
 import './index.scss';
 
-const { projectId, metadata, walletIds } = walletConnectConfig;
+const { projectId, metadata } = walletConnectConfig;
 const mantaChain = appConfig.MANTA_CHAIN;
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
@@ -39,9 +39,7 @@ createWeb3Modal({
   wagmiConfig,
   projectId,
   chains,
-  defaultChain: mantaChain,
-  featuredWalletIds: walletIds,
-  includeWalletIds: walletIds
+  defaultChain: mantaChain
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -1,10 +1,9 @@
 import developmentConfig from './development.config';
-import previewConfig from './preview.config';
 import productionConfig from './production.config';
 
 const envConfig = {
   production: productionConfig,
-  preview: previewConfig,
+  preview: developmentConfig,
   development: developmentConfig
 };
 
