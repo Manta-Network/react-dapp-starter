@@ -19,3 +19,9 @@ const Home = () => {
 
 export default Home;
 ```
+
+# TODO
+
+- Contract Usage Framework
+- modal overflow
+- Global Notification
