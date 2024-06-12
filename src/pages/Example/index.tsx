@@ -59,7 +59,7 @@ const Example = () => {
     });
   };
   return (
-    <div className="mt-4 flex flex-col gap-4">
+    <div className="mt-4 flex flex-col gap-4 text-[24px]">
       Examples
       <MantaSvg />
       <div>
