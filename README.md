@@ -20,6 +20,14 @@ const Home = () => {
 export default Home;
 ```
 
+## import svg with `vite-plugin-svgr`
+
+```jsx
+import MantaSvg from '@/assets/home/manta.svg?react'; // just add ?react in path
+
+const Demo = () => <MantaSvg />;
+```
+
 # TODO
 
 - Contract Usage Framework
