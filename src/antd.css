@@ -1,0 +1,15 @@
+.custom-notice {
+  padding: 1rem !important;
+  max-width: 28rem !important;
+  border-radius: 10px;
+  width: max-content !important;
+}
+@media screen and (max-width: 768px) {
+  .custom-notice {
+    max-width: calc(100vw - 48px) !important;
+  }
+}
+.custom-notice-message {
+  margin-bottom: 0 !important;
+  font-family: 'Tomorrow', sans-serif;
+}

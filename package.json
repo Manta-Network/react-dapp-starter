@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@web3modal/wagmi": "3.5.7",
+    "antd": "^5.18.1",
     "dayjs": "^1.11.11",
     "ethers": "^5.7.0",
     "react": "^18.2.0",

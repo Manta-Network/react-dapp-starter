@@ -10,7 +10,10 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { publicProvider } from 'wagmi/providers/public';
 import AppRouter from '@/AppRouter.tsx';
 import '@/index.scss';
+import '@/antd.css';
 import { getFetcher } from '@/utils/request/index.ts';
+import { ConfigProvider, notification } from 'antd';
+import { theme } from './constants/antdTheme';
 
 const { projectId, metadata } = walletConnectConfig;
 const mantaChain = appConfig.MANTA_CHAIN;
@@ -44,6 +47,11 @@ createWeb3Modal({
   defaultChain: mantaChain
 });
 
+notification.config({
+  closeIcon: false,
+  prefixCls: 'custom'
+});
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <SWRConfig
@@ -53,7 +61,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       }}
     >
       <WagmiConfig config={wagmiConfig}>
-        <AppRouter />
+        <ConfigProvider theme={theme}>
+          <AppRouter />
+        </ConfigProvider>
       </WagmiConfig>
     </SWRConfig>
   </React.StrictMode>
