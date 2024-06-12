@@ -1,6 +1,4 @@
 import { Modal, ModalProps } from 'antd';
-import React from 'react';
-
 import './index.css';
 import modalClose from '@/assets/svgs/modal_close.svg';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
