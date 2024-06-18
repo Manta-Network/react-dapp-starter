@@ -10,18 +10,18 @@ import { useAccount } from 'wagmi';
 
 export interface UseErc20Props {
   tokenAddress: string;
-  approveTokenAddress?: string;
+  approveAddress: string;
   approveAmount?: string;
 }
 
 function Index({
   tokenAddress,
-  approveTokenAddress = ethers.constants.AddressZero,
+  approveAddress,
   approveAmount = ethers.constants.MaxUint256.toString()
 }: UseErc20Props) {
   const signer = useEthersSigner();
   const { address } = useAccount();
-  const [authorizationAmount, setAuthorizationAmount] = useState<string>(); // 授权额度
+  const [allowanceAmount, setAllowanceAmount] = useState<string>(); // 授权额度
   const [balance, setBalance] = useState<string>();
 
   const erc20Abi = useMemo(() => {
@@ -32,26 +32,26 @@ function Index({
   // 授权
   const approveState = useTransaction(erc20Abi?.approve, {
     wait: true,
-    args: [approveTokenAddress, approveAmount]
+    args: [approveAddress, approveAmount]
   });
 
   // 获取授权额度
   const getAllowance = async () => {
-    if (!address || !approveTokenAddress) return;
-    const res = await erc20Abi?.allowance(address, approveTokenAddress);
-    setAuthorizationAmount(fromWei(res?.toString())?.toString());
+    if (!address || !approveAddress) return;
+    const res = await erc20Abi?.allowance(address, approveAddress);
+    setAllowanceAmount(res ? fromWei(res?.toString())?.toString() : '0');
   };
 
-  const isEnough = useMemo(() => {
-    if (!authorizationAmount) return undefined;
+  const isOverAllowance = useMemo(() => {
+    if (!allowanceAmount) return undefined;
 
     return (
-      new BigNumber(authorizationAmount).gte(approveAmount) &&
-      new BigNumber(authorizationAmount).gt('0')
+      new BigNumber(allowanceAmount).gte(approveAmount) &&
+      new BigNumber(allowanceAmount).gt('0')
     );
-  }, [authorizationAmount, approveAmount]);
+  }, [allowanceAmount, approveAmount]);
 
-  const isLoading = isEnough === undefined;
+  const isAllowanceLoading = isOverAllowance === undefined;
 
   const getBalance = async () => {
     const balance = await erc20Abi?.balanceOf(address as string);
@@ -69,10 +69,11 @@ function Index({
   }, [approveState.result]);
 
   useEffect(() => {
-    if (approveTokenAddress === ethers.constants.AddressZero) return;
+    if (!address || !erc20Abi) return;
+    if (approveAddress === ethers.constants.AddressZero) return;
     getAllowance();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [approveTokenAddress]);
+  }, [approveAddress, address, erc20Abi]);
 
   useEffect(() => {
     if (!address || !erc20Abi) return;
@@ -82,10 +83,10 @@ function Index({
   }, [erc20Abi, address]);
 
   return {
-    isEnough,
-    isLoading,
+    isOverAllowance,
+    isAllowanceLoading,
     approveState,
-    authorizationAmount,
+    allowanceAmount,
     balance,
     getBalance
   };

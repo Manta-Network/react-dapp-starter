@@ -6,9 +6,12 @@ import { useAccount, useDisconnect } from 'wagmi';
 import type { IModalContentProps } from '@/hooks/useModal';
 import useTransaction from '@/hooks/useTransaction';
 import { useContractsContext } from '@/context/ContractsContext';
+import useErc20 from '@/hooks/useErc20';
 interface IModalProps {
   onConfirm: () => void;
 }
+
+const usdtAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7';
 
 function ModalContent({ data }: IModalContentProps<IModalProps>) {
   return (
@@ -43,13 +46,17 @@ const Example = () => {
   const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
   const { usdtContract } = useContractsContext();
-  // const [] = useTransaction();
-  console.log('contracts', usdtContract);
 
   const [MantaModal, { onOpen, onCancel }] = useModal(ExampleModal, {
     title: 'Manta Modal',
     width: 434
   });
+
+  const { approveState, allowanceAmount, isAllowanceLoading, balance } =
+    useErc20({
+      tokenAddress: usdtAddress,
+      approveAddress: '0x0039ae77dCfD35380672a9Cc9Dee073EFCc2135A'
+    });
 
   const transferStatus = useTransaction(usdtContract?.transfer, { wait: true });
 
@@ -90,13 +97,23 @@ const Example = () => {
         <Button onClick={openModal}>click here to show Modal</Button>
       </div>
       {/* Contracts */}
+      <p>your usdt data is loading:{isAllowanceLoading ? 'true' : 'false'}</p>
+      <p>Your usdt allowance:{allowanceAmount || '--'}</p>
+      <p>Your usdt balance:{balance || '--'}</p>
+      <Button
+        loading={approveState.loading}
+        onClick={() => {
+          approveState.run();
+        }}
+      >
+        Auth
+      </Button>
       <Button
         loading={transferStatus.loading}
-        // loading={transferStatus.loading}
         onClick={() => {
           transferStatus.run(
             '0x0039ae77dCfD35380672a9Cc9Dee073EFCc2135A',
-            1e18
+            '100000'
           );
         }}
       >

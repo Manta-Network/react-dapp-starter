@@ -19,7 +19,7 @@ function useTransaction<Method extends (...args: any[]) => Promise<any>>(
   const [error, setError] = useState<any>();
   const [loading, setLoading] = useState(false);
 
-  const callMethod = async (...fnArgs: Parameters<Method>) => {
+  const callMethod = async (...fnArgs: Parameters<Method> | []) => {
     setLoading(true);
     setError(null);
     if (!method) {
@@ -29,6 +29,7 @@ function useTransaction<Method extends (...args: any[]) => Promise<any>>(
       return;
     }
     try {
+      console.log('[...args, ...fnArgs]', [...args, ...fnArgs]);
       const res = await method(...[...args, ...fnArgs]);
       if (!res) return;
       let result = res;
@@ -46,6 +47,7 @@ function useTransaction<Method extends (...args: any[]) => Promise<any>>(
       setResult(result);
       return result;
     } catch (e: any) {
+      console.log('e', e);
       if (
         e.code === WalletErrorCode.rejectedNum ||
         e.code === WalletErrorCode.rejectedStr
