@@ -51,7 +51,7 @@ const Example = () => {
     width: 434
   });
 
-  const status = useTransaction(usdtContract?.transfer, { wait: true });
+  const transferStatus = useTransaction(usdtContract?.transfer, { wait: true });
 
   const handleNotification = () => {
     notification.success({
@@ -90,13 +90,18 @@ const Example = () => {
         <Button onClick={openModal}>click here to show Modal</Button>
       </div>
       {/* Contracts */}
-      <button
+      <Button
+        loading={transferStatus.loading}
+        // loading={transferStatus.loading}
         onClick={() => {
-          status.run('0x0039ae77dCfD35380672a9Cc9Dee073EFCc2135A', 1e18);
+          transferStatus.run(
+            '0x0039ae77dCfD35380672a9Cc9Dee073EFCc2135A',
+            1e18
+          );
         }}
       >
         test transfer
-      </button>
+      </Button>
       {MantaModal}
     </div>
   );

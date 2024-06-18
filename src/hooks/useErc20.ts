@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Erc20__factory } from '@/contracts/interface';
 import useTransaction from './useTransaction';
 import BigNumber from 'bignumber.js';
-import { ethers, BigNumber as EBigNumber } from 'ethers';
+import { ethers } from 'ethers';
 import { fromTokenDecimals, fromWei } from '@/utils/format';
 import { useEthersSigner } from './useEthersSigner';
 import { useAccount } from 'wagmi';
@@ -14,17 +14,13 @@ export interface UseErc20Props {
   approveAmount?: string;
 }
 
-export const MaxUint256: EBigNumber = /*#__PURE__*/ EBigNumber.from(
-  '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
-);
-
 function Index({
   tokenAddress,
   approveTokenAddress = ethers.constants.AddressZero,
-  approveAmount = '0'
+  approveAmount = ethers.constants.MaxUint256.toString()
 }: UseErc20Props) {
   const signer = useEthersSigner();
-  const address = useAccount();
+  const { address } = useAccount();
   const [authorizationAmount, setAuthorizationAmount] = useState<string>(); // 授权额度
   const [balance, setBalance] = useState<string>();
 
@@ -36,7 +32,7 @@ function Index({
   // 授权
   const approveState = useTransaction(erc20Abi?.approve, {
     wait: true,
-    args: [approveTokenAddress, MaxUint256]
+    args: [approveTokenAddress, approveAmount]
   });
 
   // 获取授权额度
@@ -82,6 +78,7 @@ function Index({
     if (!address || !erc20Abi) return;
 
     getBalance();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [erc20Abi, address]);
 
   return {

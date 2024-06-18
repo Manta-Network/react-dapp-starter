@@ -9,7 +9,10 @@ import { portalErrorTranslation } from '@/utils/format';
 
 function useTransaction<Method extends (...args: any[]) => Promise<any>>(
   method: Method | undefined,
-  { args = [], wait = false }: { args: Parameters<Method> | []; wait: boolean },
+  {
+    args = [],
+    wait = false
+  }: { args?: Parameters<Method> | []; wait?: boolean },
   successMessage = 'Operate success'
 ) {
   const [result, setResult] = useState<Response>();
