@@ -21,7 +21,7 @@ const { projectId, metadata } = walletConnectConfig;
 const mantaChain = appConfig.MANTA_CHAIN;
 
 const queryClient = new QueryClient();
-console.log('mantaChain', mantaChain);
+
 const chains = [mainnet, arbitrum, mantaChain] as const;
 const config = defaultWagmiConfig({
   chains,
