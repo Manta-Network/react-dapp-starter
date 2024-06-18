@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useConfigContext } from '@/context/ConfigContext';
+// import { useConfigContext } from '@/context/ConfigContext';
 import { Erc20__factory } from '@/contracts/interface';
 import useTransaction from './useTransaction';
 import BigNumber from 'bignumber.js';
 import { ethers, BigNumber as EBigNumber } from 'ethers';
-import { fromTokenDecimals, fromWei } from '@/utils/common';
+import { fromTokenDecimals, fromWei } from '@/utils/format';
 
 export interface UseErc20Props {
   tokenAddress: string;
