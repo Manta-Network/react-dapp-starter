@@ -4,28 +4,69 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 # Some use cases
 
-## useSWR
+## React Query
 
 ```jsx
-import useSWR from 'swr';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query';
+import { getTodos, postTodo } from '../my-api';
 
-const Home = () => {
-  const { data } = useSWR(
-    'https://cedefi-api.nonprod-cedefi.manta.network/leaderboard'
-  ); // just need a url, the default fetcher already pass in <SWRConfig
+// Create a client
+const queryClient = new QueryClient();
 
-  return <div>{JSON.stringify(data)}</div>;
-};
+function App() {
+  return (
+    // Provide the client to your App
+    <QueryClientProvider client={queryClient}>
+      <Todos />
+    </QueryClientProvider>
+  );
+}
 
-export default Home;
-```
+function Todos() {
+  // Access the client
+  const queryClient = useQueryClient();
 
-## import svg with `vite-plugin-svgr`
+  // Queries
+  const query = useQuery({ queryKey: ['todos'], queryFn: getTodos });
 
-```jsx
-import MantaSvg from '@/assets/home/manta.svg?react'; // just add ?react in path
+  // Mutations
+  const mutation = useMutation({
+    mutationFn: postTodo,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    }
+  });
 
-const Demo = () => <MantaSvg />;
+  return (
+    <div>
+      <ul>
+        {query.data?.map(todo => (
+          <li key={todo.id}>{todo.title}</li>
+        ))}
+      </ul>
+
+      <button
+        onClick={() => {
+          mutation.mutate({
+            id: Date.now(),
+            title: 'Do Laundry'
+          });
+        }}
+      >
+        Add Todo
+      </button>
+    </div>
+  );
+}
+
+render(<App />, document.getElementById('root'));
 ```
 
 # TODO

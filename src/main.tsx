@@ -1,50 +1,40 @@
-import { appConfig } from '@/config/appConfig/index.ts';
 import walletConnectConfig from '@/config/walletConnectConfig/index.ts';
-import { EIP6963Connector, walletConnectProvider } from '@web3modal/wagmi';
+// import { EIP6963Connector, walletConnectProvider } from '@web3modal/wagmi';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
+import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
+
+import { WagmiProvider } from 'wagmi';
+import { arbitrum, mainnet } from 'wagmi/chains';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { SWRConfig } from 'swr';
-import { WagmiConfig, configureChains, createConfig } from 'wagmi';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { publicProvider } from 'wagmi/providers/public';
+
 import AppRouter from '@/AppRouter.tsx';
 import '@/index.scss';
 import '@/antd.css';
-import { getFetcher } from '@/utils/request/index.ts';
+
 import { ConfigProvider, notification } from 'antd';
 import { theme } from './constants/antdTheme';
+import { appConfig } from './config/appConfig';
 
 const { projectId, metadata } = walletConnectConfig;
 const mantaChain = appConfig.MANTA_CHAIN;
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [mantaChain],
-  [walletConnectProvider({ projectId }), publicProvider()]
-);
+const queryClient = new QueryClient();
 
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors: [
-    new WalletConnectConnector({
-      chains,
-      options: { projectId, showQrModal: false, metadata }
-    }),
-    new EIP6963Connector({ chains })
-  ],
-  publicClient,
-  webSocketPublicClient
+const chains = [mainnet, arbitrum, mantaChain] as const;
+const config = defaultWagmiConfig({
+  chains,
+  projectId,
+  metadata
 });
 
+// 3. Create modal
 createWeb3Modal({
-  themeMode: 'light',
-  themeVariables: {
-    '--w3m-font-family': 'Tomorrow'
-  },
-  wagmiConfig,
+  wagmiConfig: config,
   projectId,
-  chains,
-  defaultChain: mantaChain
+  enableAnalytics: true, // Optional - defaults to your Cloud configuration
+  enableOnramp: true // Optional - false as default
 });
 
 notification.config({
@@ -54,17 +44,12 @@ notification.config({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <SWRConfig
-      value={{
-        revalidateOnFocus: false,
-        fetcher: getFetcher
-      }}
-    >
-      <WagmiConfig config={wagmiConfig}>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
         <ConfigProvider theme={theme}>
           <AppRouter />
         </ConfigProvider>
-      </WagmiConfig>
-    </SWRConfig>
+      </QueryClientProvider>
+    </WagmiProvider>
   </React.StrictMode>
 );
