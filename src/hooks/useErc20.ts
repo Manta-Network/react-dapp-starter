@@ -5,6 +5,8 @@ import useTransaction from './useTransaction';
 import BigNumber from 'bignumber.js';
 import { ethers, BigNumber as EBigNumber } from 'ethers';
 import { fromTokenDecimals, fromWei } from '@/utils/format';
+import { useEthersSigner } from './useEthersSigner';
+import { useAccount } from 'wagmi';
 
 export interface UseErc20Props {
   tokenAddress: string;
@@ -21,14 +23,15 @@ function Index({
   approveTokenAddress = ethers.constants.AddressZero,
   approveAmount = '0'
 }: UseErc20Props) {
-  const { signerOrProvider, address } = useConfigContext();
+  const signer = useEthersSigner();
+  const address = useAccount();
   const [authorizationAmount, setAuthorizationAmount] = useState<string>(); // 授权额度
   const [balance, setBalance] = useState<string>();
 
   const erc20Abi = useMemo(() => {
-    if (!signerOrProvider || !tokenAddress) return null;
-    return Erc20__factory.connect(tokenAddress, signerOrProvider);
-  }, [signerOrProvider, tokenAddress]);
+    if (!signer || !tokenAddress) return null;
+    return Erc20__factory.connect(tokenAddress, signer);
+  }, [signer, tokenAddress]);
 
   // 授权
   const approveState = useTransaction(erc20Abi?.approve, {

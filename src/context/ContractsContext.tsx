@@ -1,14 +1,41 @@
-import { createContext, useContext } from 'react';
+import { createContext, useCallback, useContext } from 'react';
 import { Erc20__factory } from '@/contracts/interface';
+import { useEthersSigner } from '@/hooks/useEthersSigner';
 
-export type IContractContext = Partial<ReturnType<typeof useContracts>>;
-export const ContractsContext = createContext<IContractContext>({});
+export type IContractContext = ReturnType<typeof useContracts>;
+export const ContractsContext = createContext<IContractContext | undefined>(
+  undefined
+);
 
 export const useContracts = () => {
-  const erc20Contract = Erc20__factory.connect('Contract Address', '');
+  const signer = useEthersSigner();
+
+  const register = useCallback(() => {
+    if (!signer) {
+      return;
+    }
+    const usdtContract = Erc20__factory.connect(
+      '0xdac17f958d2ee523a2206206994597c13d831ec7',
+      signer
+    );
+    return {
+      usdtContract
+    };
+  }, [signer]);
+
+  //   const usdtContract = useMemo(() => {
+  //     if (!signer) {
+  //       return undefined;
+  //     }
+  //     // Register your contract here
+  //     return Erc20__factory.connect(
+  //       '0xdac17f958d2ee523a2206206994597c13d831ec7',
+  //       signer
+  //     );
+  //   }, [signer]);
 
   return {
-    erc20Contract
+    ...register()
   };
 };
 
@@ -27,5 +54,6 @@ export const ContractsProvider = ({
 
 export const useContractsContext = () => {
   const values = useContext(ContractsContext);
-  return values;
+
+  return values as IContractContext;
 };

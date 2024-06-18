@@ -5,9 +5,11 @@ import { useState } from 'react';
 import { TX_SUCCESS, WalletErrorCode } from '@/constants/walletConstants';
 import { portalErrorTranslation } from '@/utils/format';
 
+//  TODO: add return types
+
 function useTransaction<Method extends (...args: any[]) => Promise<any>>(
-  method: Method,
-  { args = [], wait = false },
+  method: Method | undefined,
+  { args = [], wait = false }: { args: Parameters<Method> | []; wait: boolean },
   successMessage = 'Operate success'
 ) {
   const [result, setResult] = useState<Response>();
@@ -17,7 +19,12 @@ function useTransaction<Method extends (...args: any[]) => Promise<any>>(
   const callMethod = async (...fnArgs: Parameters<Method>) => {
     setLoading(true);
     setError(null);
-
+    if (!method) {
+      notification.error({
+        message: 'Method is not defined'
+      });
+      return;
+    }
     try {
       const res = await method(...[...args, ...fnArgs]);
       if (!res) return;

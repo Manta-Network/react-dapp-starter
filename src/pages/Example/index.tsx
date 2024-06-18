@@ -4,6 +4,8 @@ import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { notification, Button } from 'antd';
 import { useAccount, useDisconnect } from 'wagmi';
 import type { IModalContentProps } from '@/hooks/useModal';
+import useTransaction from '@/hooks/useTransaction';
+import { useContractsContext } from '@/context/ContractsContext';
 interface IModalProps {
   onConfirm: () => void;
 }
@@ -40,17 +42,23 @@ const Example = () => {
   const { disconnect } = useDisconnect();
   const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
+  const { usdtContract } = useContractsContext();
+  // const [] = useTransaction();
+  console.log('contracts', usdtContract);
 
   const [MantaModal, { onOpen, onCancel }] = useModal(ExampleModal, {
     title: 'Manta Modal',
     width: 434
   });
 
+  const status = useTransaction(usdtContract?.transfer, { wait: true });
+
   const handleNotification = () => {
     notification.success({
       message: 'Notification Success'
     });
   };
+
   const openModal = () => {
     onOpen({
       onConfirm: () => {
@@ -58,6 +66,7 @@ const Example = () => {
       }
     });
   };
+
   return (
     <div className="mt-4 flex flex-col gap-4 text-[24px]">
       Examples
@@ -80,6 +89,14 @@ const Example = () => {
       <div>
         <Button onClick={openModal}>click here to show Modal</Button>
       </div>
+      {/* Contracts */}
+      <button
+        onClick={() => {
+          status.run('0x0039ae77dCfD35380672a9Cc9Dee073EFCc2135A', 1e18);
+        }}
+      >
+        test transfer
+      </button>
       {MantaModal}
     </div>
   );

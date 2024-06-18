@@ -16,6 +16,7 @@ import '@/antd.css';
 import { ConfigProvider, notification } from 'antd';
 import { theme } from './constants/antdTheme';
 import { appConfig } from './config/appConfig';
+import { ContractsProvider } from './context/ContractsContext';
 
 const { projectId, metadata } = walletConnectConfig;
 const mantaChain = appConfig.MANTA_CHAIN;
@@ -47,7 +48,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <ConfigProvider theme={theme}>
-          <AppRouter />
+          <ContractsProvider>
+            <AppRouter />
+          </ContractsProvider>
         </ConfigProvider>
       </QueryClientProvider>
     </WagmiProvider>
