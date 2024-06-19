@@ -23,17 +23,6 @@ export const useContracts = () => {
     };
   }, [signer]);
 
-  //   const usdtContract = useMemo(() => {
-  //     if (!signer) {
-  //       return undefined;
-  //     }
-  //     // Register your contract here
-  //     return Erc20__factory.connect(
-  //       '0xdac17f958d2ee523a2206206994597c13d831ec7',
-  //       signer
-  //     );
-  //   }, [signer]);
-
   return {
     ...register()
   };
