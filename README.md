@@ -69,8 +69,13 @@ function Todos() {
 render(<App />, document.getElementById('root'));
 ```
 
+## Contracts port
+
+After you update abis in `/src/contracts/abis`, Ytoou should run `npm run typechain:generate` to generate type interface of abis
+
 # TODO
 
-- Contract Usage Framework
+<!-- - Contract Usage Framework -->
+
 - modal overflow
 - Global Notification
