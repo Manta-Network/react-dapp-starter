@@ -29,7 +29,6 @@ function useTransaction<Method extends (...args: any[]) => Promise<any>>(
       return;
     }
     try {
-      console.log('[...args, ...fnArgs]', [...args, ...fnArgs]);
       const res = await method(...[...args, ...fnArgs]);
       if (!res) return;
       let result = res;
