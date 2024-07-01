@@ -10,7 +10,7 @@ import { useAccount } from 'wagmi';
 
 export interface UseErc20Props {
   tokenAddress: string;
-  approveAddress: string;
+  approveAddress?: string;
   approveAmount?: string;
 }
 
@@ -32,7 +32,7 @@ function Index({
   // 授权
   const approveState = useTransaction(erc20Abi?.approve, {
     wait: true,
-    args: [approveAddress, approveAmount]
+    args: [approveAddress as string, approveAmount]
   });
 
   // 获取授权额度
@@ -64,12 +64,12 @@ function Index({
   };
 
   useEffect(() => {
-    getAllowance(); // 更新授权额度
+    getAllowance();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [approveState.result]);
 
   useEffect(() => {
-    if (!address || !erc20Abi) return;
+    if (!address || !erc20Abi || !approveAddress) return;
     if (approveAddress === ethers.constants.AddressZero) return;
     getAllowance();
     // eslint-disable-next-line react-hooks/exhaustive-deps
