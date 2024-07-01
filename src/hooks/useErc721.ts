@@ -42,7 +42,12 @@ function Index({
   };
 
   useEffect(() => {
-    if (!address || !approveTokenAddress) return;
+    if (
+      !address ||
+      !approveTokenAddress ||
+      approveTokenAddress === ethers.constants.AddressZero
+    )
+      return;
     handleGetApproved();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, erc721Abi, approveTokenAddress, approveState.result]);
