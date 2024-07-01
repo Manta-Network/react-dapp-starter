@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext } from 'react';
 import { Erc20__factory } from '@/contracts/interface';
 import { useEthersSigner } from '@/hooks/useEthersSigner';
+import { useEthersProvider } from '@/hooks/useEthersProvider';
 
 export type IContractContext = ReturnType<typeof useContracts>;
 export const ContractsContext = createContext<IContractContext | undefined>(
@@ -9,19 +10,21 @@ export const ContractsContext = createContext<IContractContext | undefined>(
 
 export const useContracts = () => {
   const signer = useEthersSigner();
+  const provider = useEthersProvider();
+  const providerOrSigner = signer || provider;
 
   const register = useCallback(() => {
-    if (!signer) {
+    if (!providerOrSigner) {
       return;
     }
     const usdtContract = Erc20__factory.connect(
       '0xdac17f958d2ee523a2206206994597c13d831ec7',
-      signer
+      providerOrSigner
     );
     return {
       usdtContract
     };
-  }, [signer]);
+  }, [providerOrSigner]);
 
   return {
     ...register()
