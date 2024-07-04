@@ -9,14 +9,14 @@ import { useEthersSigner } from './useEthersSigner';
 import { useAccount } from 'wagmi';
 
 export interface UseErc20Props {
-  tokenAddress: string;
+  tokenAddress?: string;
   approveAddress?: string;
   approveAmount?: string;
 }
 
 function Index({
   tokenAddress,
-  approveAddress,
+  approveAddress = ethers.constants.AddressZero,
   approveAmount = ethers.constants.MaxUint256.toString()
 }: UseErc20Props) {
   const signer = useEthersSigner();
@@ -32,7 +32,7 @@ function Index({
   // 授权
   const approveState = useTransaction(erc20Abi?.approve, {
     wait: true,
-    args: [approveAddress as string, approveAmount]
+    args: [approveAddress as string, ethers.constants.MaxUint256]
   });
 
   // 获取授权额度
@@ -69,8 +69,14 @@ function Index({
   }, [approveState.result]);
 
   useEffect(() => {
-    if (!address || !erc20Abi || !approveAddress) return;
-    if (approveAddress === ethers.constants.AddressZero) return;
+    if (
+      !address ||
+      !erc20Abi ||
+      !approveAddress ||
+      approveAddress === ethers.constants.AddressZero
+    )
+      return;
+
     getAllowance();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [approveAddress, address, erc20Abi]);

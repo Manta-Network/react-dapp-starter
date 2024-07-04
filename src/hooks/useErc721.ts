@@ -8,13 +8,13 @@ import { useEthersSigner } from './useEthersSigner';
 
 export interface UseErc721Props {
   tokenAddress: string;
-  approveTokenAddress?: string;
+  approveAddress?: string;
   tokenId?: string;
 }
 
 function Index({
   tokenAddress,
-  approveTokenAddress = ethers.constants.AddressZero,
+  approveAddress = ethers.constants.AddressZero,
   tokenId
 }: UseErc721Props) {
   const signer = useEthersSigner();
@@ -29,13 +29,13 @@ function Index({
   // 授权
   const approveState = useTransaction(erc721Abi?.approve, {
     wait: true,
-    args: [approveTokenAddress, tokenId as string]
+    args: [approveAddress, tokenId as string]
   });
 
   const handleGetApproved = async () => {
     try {
       const res = await erc721Abi?.getApproved(tokenId as string);
-      setIsApproved(res === approveTokenAddress);
+      setIsApproved(res === approveAddress);
     } catch (error) {
       console.log(error);
     }
@@ -44,13 +44,13 @@ function Index({
   useEffect(() => {
     if (
       !address ||
-      !approveTokenAddress ||
-      approveTokenAddress === ethers.constants.AddressZero
+      !approveAddress ||
+      approveAddress === ethers.constants.AddressZero
     )
       return;
     handleGetApproved();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, erc721Abi, approveTokenAddress, approveState.result]);
+  }, [address, erc721Abi, approveAddress, approveState.result]);
 
   return {
     approveState,
