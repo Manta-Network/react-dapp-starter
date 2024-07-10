@@ -10,10 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.50.1",
+    "@web3modal/wagmi": "^5.0.6",
     "classnames": "^2.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.24.1"
+    "react-router-dom": "^6.24.1",
+    "viem": "^2.17.3",
+    "wagmi": "^2.10.10"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
