@@ -23,6 +23,7 @@ function Index({
   const { address } = useAccount();
   const [allowanceAmount, setAllowanceAmount] = useState<string>(); // 授权额度
   const [balance, setBalance] = useState<string>();
+  const [isBalanceLoading, setIsBalanceLoading] = useState(false);
 
   const erc20Abi = useMemo(() => {
     if (!signer || !tokenAddress) return null;
@@ -54,13 +55,20 @@ function Index({
   const isAllowanceLoading = isOverAllowance === undefined;
 
   const getBalance = async () => {
-    const balance = await erc20Abi?.balanceOf(address as string);
-    const decimals = await erc20Abi?.decimals();
-    const balanceStr = balance
-      ? fromTokenDecimals(balance?.toString(), decimals as number)?.toString()
-      : '0';
+    try {
+      setIsBalanceLoading(true);
+      const balance = await erc20Abi?.balanceOf(address as string);
+      const decimals = await erc20Abi?.decimals();
+      const balanceStr = balance
+        ? fromTokenDecimals(balance?.toString(), decimals as number)?.toString()
+        : '0';
 
-    setBalance(balanceStr);
+      setBalance(balanceStr);
+    } catch (error) {
+      console.log('get Balance Error', error);
+    } finally {
+      setIsBalanceLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -94,6 +102,7 @@ function Index({
     approveState,
     allowanceAmount,
     balance,
+    isBalanceLoading,
     getBalance
   };
 }
