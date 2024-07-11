@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* antd css overrides */
+.ant-notification-notice-message {
+  margin-bottom: 0 !important;
+}
