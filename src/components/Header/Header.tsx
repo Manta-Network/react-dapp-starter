@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import MantaNetworkLogo from '@/assets/manta-network-logo.svg';
-import './Header.css';
+import './Header.scss';
 
 function Header() {
   const { pathname } = useLocation();

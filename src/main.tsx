@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ConfigProvider, notification } from 'antd';
 import AppRouter from './AppRouter.tsx';
 import antdTheme from './config/antd.theme.ts';
-import './index.css';
+import './index.scss';
 
 // 0. Setup queryClient
 const queryClient = new QueryClient();
