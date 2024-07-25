@@ -18,9 +18,11 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.414.0",
+    "next-themes": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.24.1",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0",
     "viem": "^2.17.3",
     "wagmi": "^2.10.10"
