@@ -13,10 +13,14 @@
     "@tanstack/react-query": "^5.50.1",
     "@web3modal/wagmi": "^5.0.6",
     "antd": "^5.19.1",
+    "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.414.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.24.1",
+    "tailwind-merge": "^2.4.0",
     "viem": "^2.17.3",
     "wagmi": "^2.10.10"
   },
@@ -40,6 +44,7 @@
     "prettier-plugin-tailwindcss": "^0.6.5",
     "sass": "^1.77.8",
     "tailwindcss": "^3.4.4",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-plugin-svgr": "^4.2.0"
