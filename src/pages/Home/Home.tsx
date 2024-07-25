@@ -1,5 +1,6 @@
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { useAccount, useDisconnect } from 'wagmi';
+import { Button } from '@/components/ui/button';
 
 function Home() {
   const { open } = useWeb3Modal();
@@ -9,19 +10,9 @@ function Home() {
     <div>
       Home Page
       {address ? (
-        <button
-          onClick={() => disconnect()}
-          className="block rounded-md bg-blue-400 px-4 py-2 text-white"
-        >
-          Disconnect
-        </button>
+        <Button onClick={() => disconnect()}>Disconnect</Button>
       ) : (
-        <button
-          onClick={() => open()}
-          className="block rounded-md bg-blue-400 px-4 py-2 text-white"
-        >
-          Connect Wallet
-        </button>
+        <Button onClick={() => open()}>Connect Wallet</Button>
       )}
       {address && `Connected as ${address}`}
     </div>
