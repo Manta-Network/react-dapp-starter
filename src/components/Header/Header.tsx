@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import MantaNetworkLogo from '@/assets/manta-network-logo.svg';
 import './Header.scss';
 
@@ -18,7 +18,7 @@ function Header() {
         </a>
         <Link
           to="/"
-          className={classNames(
+          className={clsx(
             'header-link ml-10 flex items-center gap-1 text-center',
             {
               'text-[#05d9a6]': pathname === '/',
@@ -30,7 +30,7 @@ function Header() {
         </Link>
         <Link
           to="/profile"
-          className={classNames('header-link', {
+          className={clsx('header-link', {
             'text-[#05d9a6]': pathname === '/profile',
             'text-[rgba(21,21,34,0.70)]': pathname !== '/profile',
           })}

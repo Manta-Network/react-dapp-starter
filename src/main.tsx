@@ -5,9 +5,7 @@ import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
 import { WagmiProvider } from 'wagmi';
 import { arbitrum, mainnet } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ConfigProvider, notification } from 'antd';
 import AppRouter from './AppRouter.tsx';
-import antdTheme from './config/antd.theme.ts';
 import './index.scss';
 
 // 0. Setup queryClient
@@ -39,17 +37,11 @@ createWeb3Modal({
   enableOnramp: true, // Optional - false as default
 });
 
-notification.config({
-  closeIcon: false,
-});
-
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <ConfigProvider theme={antdTheme}>
-          <AppRouter />
-        </ConfigProvider>
+        <AppRouter />
       </QueryClientProvider>
     </WagmiProvider>
   </React.StrictMode>
