@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 
 function Home() {
   const { open } = useWeb3Modal();
@@ -40,7 +41,28 @@ function Home() {
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
             </DialogHeader>
-            <div className="grid gap-4 py-4">modal content</div>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="name" className="text-right">
+                  Name
+                </label>
+                <Input
+                  id="name"
+                  defaultValue="Pedro Duarte"
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="username" className="text-right">
+                  Username
+                </label>
+                <Input
+                  id="username"
+                  defaultValue="@peduarte"
+                  className="col-span-3"
+                />
+              </div>
+            </div>
             <DialogFooter>
               <Button type="submit">Save changes</Button>
             </DialogFooter>
