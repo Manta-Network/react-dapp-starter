@@ -16,6 +16,8 @@
 - **[Viem](https://viem.sh/)**: A toolkit for handling Ethereum-related data and logic.
 - **[Shadcn UI](https://ui.shadcn.com/)**: A collection of pre-built UI components for a fast and consistent development experience.
 - **[Zustand](https://github.com/pmndrs/zustand)**: A small, fast, and scalable state management solution for React.
+- **[TanStack Query](https://tanstack.com/query/latest/docs/framework/react/overview)**: Powerful data fetching, caching, and synchronization for server state management.
+- **ESLint & Prettier**: Code quality and formatting tools to ensure a clean codebase.
 
 ## Getting Started
 
