@@ -25,7 +25,8 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0",
     "viem": "^2.17.3",
-    "wagmi": "^2.10.10"
+    "wagmi": "^2.10.10",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
