@@ -1,5 +1,5 @@
 import MenuIcon from './assets/mobile-menu.svg?react';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import './index.scss';
 import { useResponsive } from '@/hooks/useResponsive';
 import clsx from 'clsx';
@@ -7,6 +7,18 @@ import clsx from 'clsx';
 const Menu = ({ children }: { children: ReactNode }) => {
   const [open, toggleOpen] = useState(false);
   const { isMobile } = useResponsive();
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    // Clean up the effect
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [open]);
 
   if (isMobile) {
     return (
