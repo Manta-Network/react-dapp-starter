@@ -116,10 +116,12 @@
 ├── .eslintrc.cjs # ESLint configuration
 ├── .gitignore # Git ignore file
 ├── .prettierrc # Prettier configuration
+├── CHANGELOG.md # Project changelog
 ├── components.json # Shadcn UI components configuration
 ├── index.html # Main HTML file
 ├── package.json # Project metadata and dependencies
 ├── postcss.config.js # PostCSS configuration
+├── PROJECT_OVERVIEW.md # Overview of the project
 ├── README.md # Project README
 ├── tailwind.config.js # Tailwind CSS configuration
 ├── tsconfig.json # TypeScript configuration
