@@ -21,8 +21,6 @@
 
 ## Getting Started
 
-### Installation
-
 1. **Clone the repository:**
 
    You can use a tool like [degit](https://github.com/Rich-Harris/degit) to scaffold your project with this template.
@@ -32,66 +30,29 @@
    cd your-project
    ```
 
-2. **Install dependencies:**
-
-   Using Yarn:
+2. **Install dependencies (default: yarn):**
 
    ```bash
    yarn install
    ```
 
-   Or using npm:
+3. **Configure WalletConnect Project ID and Metadata:**
 
-   ```bash
-   npm install
-   ```
-
-3. **Configure WalletConnect Project ID:**
-
-   - Go to [WalletConnect Cloud](https://cloud.walletconnect.com) to create a project and obtain your `Project ID`.
+   - Visit [WalletConnect Cloud](https://cloud.walletconnect.com) to create a project and obtain your `Project ID`.
    - Open the file `src/config/common.ts` in your project.
-   - Replace the placeholder `YOUR_PROJECT_ID` with your actual `Project ID` from WalletConnect Cloud.
+   - Locate the `WALLET_CONNECT_PROJECT_ID` key and replace `YOUR_PROJECT_ID` with your actual `Project ID`.
+   - Update the `WALLET_CONNECT_METADATA` section with your project's details, including the name, description, URL, and icons.
 
 4. **Run the development server:**
-
-   Using Yarn:
 
    ```bash
    yarn dev
    ```
 
-   Or using npm:
-
-   ```bash
-   npm run dev
-   ```
-
 5. **Build for production:**
-
-   Using Yarn:
 
    ```bash
    yarn build
-   ```
-
-   Or using npm:
-
-   ```bash
-   npm run build
-   ```
-
-6. **Preview the production build:**
-
-   Using Yarn:
-
-   ```bash
-   yarn preview
-   ```
-
-   Or using npm:
-
-   ```bash
-   npm run preview
    ```
 
 ## Project Structure

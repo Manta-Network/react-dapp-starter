@@ -16,12 +16,7 @@ const queryClient = new QueryClient();
 const projectId = config.WALLET_CONNECT_PROJECT_ID;
 
 // 2. Create wagmiConfig
-const metadata = {
-  name: 'React Dapp Starter',
-  description: 'React Dapp Starter Example',
-  url: 'https://cedefi.manta.network',
-  icons: ['https://cedefi.manta.network/favicon.ico'],
-};
+const metadata = config.WALLET_CONNECT_METADATA;
 
 const chains = [mainnet, arbitrum] as const;
 const wagmiConfig = defaultWagmiConfig({
