@@ -1,15 +1,10 @@
 import { useMediaQuery } from 'react-responsive';
+import { DEVICE_BREAKPOINTS } from '@/lib/responsive';
 
-const isServer = typeof window === 'undefined';
 export function useResponsive() {
-  if (isServer) {
-    return {
-      isMobile: false,
-    };
-  }
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const isMobile = useMediaQuery({ query: 'screen and (max-width: 767px)' });
+  const isMobile = useMediaQuery({
+    query: `screen and (max-width: ${DEVICE_BREAKPOINTS.TABLET - 1}px)`,
+  });
 
   return {
     isMobile,

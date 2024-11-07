@@ -8,6 +8,7 @@ import Home from '@/pages/Home/Home';
 import Profile from '@/pages/Profile/Profile';
 import Header from '@/components/Header/Header';
 import { Toaster } from '@/components/ui/sonner';
+import History from './pages/History';
 
 function AppRouter() {
   return (
@@ -15,7 +16,8 @@ function AppRouter() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/setting" element={<Profile />} />
+        <Route path="/history" element={<History />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Toaster />
