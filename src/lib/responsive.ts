@@ -27,6 +27,10 @@ const calculateScreenRatio = (): number => {
     return 1;
   }
 
+  if (width < DEVICE_BREAKPOINTS.TABLET) {
+    return Math.min(width / base, 1)
+  }
+
   return Math.min(width / base, 2);
 };
 
