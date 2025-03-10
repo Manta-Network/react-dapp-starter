@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { Menu } from 'lucide-react';
+
 import MantaNetworkLogo from '@/assets/manta-network-logo.svg';
 import {
   NavigationMenu,
@@ -46,11 +47,11 @@ const ListItem = ({
   <Link
     to={href}
     className={cn(
-      'block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+      'hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block rounded-md p-3 leading-none no-underline transition-colors outline-none select-none',
       active && 'bg-accent text-accent-foreground'
     )}
   >
-    <div className="text-sm font-medium leading-none">{title}</div>
+    <div className="text-sm leading-none font-medium">{title}</div>
   </Link>
 );
 
@@ -108,7 +109,7 @@ const MobileNav = ({
                       key={child.title}
                       to={child.href}
                       className={cn(
-                        'block text-muted-foreground hover:text-primary',
+                        'text-muted-foreground hover:text-primary block',
                         location.pathname === child.href && 'text-primary'
                       )}
                       onClick={() => onOpenChange(false)}
@@ -173,7 +174,7 @@ export default function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b px-6 backdrop-blur">
       <div className="container flex h-14 items-center justify-between md:justify-start">
         <MantaLogo />
         {isMobile ? (

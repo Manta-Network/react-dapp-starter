@@ -1,5 +1,6 @@
 // src/components/ResponsiveDemo.tsx
 import { useEffect, useState } from 'react';
+
 import { px2rem, DEVICE_BREAKPOINTS } from '@/lib/responsive';
 
 const ResponsiveDemo = () => {

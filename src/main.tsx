@@ -5,10 +5,11 @@ import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
 import { WagmiProvider } from 'wagmi';
 import { arbitrum, mainnet } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { initResponsive } from './lib/responsive.ts';
 import AppRouter from './AppRouter.tsx';
 import config from './config/index.ts';
-import './index.scss';
+import './index.css';
 
 initResponsive();
 
