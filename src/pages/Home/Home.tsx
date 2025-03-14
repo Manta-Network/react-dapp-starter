@@ -1,6 +1,5 @@
-import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { toast } from 'sonner';
-import { useAccount, useDisconnect } from 'wagmi';
+import {  useAppKit, useAppKitAccount, useDisconnect } from '@reown/appkit/react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -15,8 +14,8 @@ import {
 import { Input } from '@/components/ui/input';
 
 function Home() {
-  const { open } = useWeb3Modal();
-  const { address } = useAccount();
+  const { open } = useAppKit();
+  const { address } = useAppKitAccount();
   const { disconnect } = useDisconnect();
 
   const showErrorToast = () => {
