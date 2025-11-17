@@ -11,17 +11,25 @@ _Note: This is a sample changelog provided as a demonstration for how to structu
 
 ### Added
 
-- Initial setup for the new API integration.
-- New component `UserCard` for displaying user information.
+- Comprehensive responsive design support with `useResponsive` hook
+- Fluid typography system for smooth font scaling (390px - 1440px viewports)
+- Enhanced Home page with wallet dashboard UI
+- Mobile navigation with Sheet component
+- Custom breakpoints based on design system (Mobile: 390px, Desktop: 1440px)
 
 ### Changed
 
-- Updated `Button` component to support new color schemes.
-- Improved performance of the data fetching mechanism using `@tanstack/react-query`.
+- Upgraded to Tailwind CSS 4.x with native Vite integration
+- Upgraded to React 19 and React Router 7
+- Migrated Tailwind configuration from JS to CSS (`@theme inline` in index.css)
+- Updated Reown AppKit to latest version (v1.8.14)
+- Refactored Header component with simplified flat navigation
 
-### Fixed
+### Removed
 
-- Fixed an issue where the form submission failed on slow networks.
+- PostCSS configuration (no longer needed with Tailwind CSS 4.x)
+- Tailwind config file (configuration moved to index.css)
+- Deprecated Profile and History pages (replaced with Page1/Page2 structure)
 
 ## [0.1.0] - 2024-09-04
 

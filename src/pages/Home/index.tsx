@@ -51,7 +51,7 @@ function Home() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+    <div className="min-h-[calc(100vh-3.5rem)] bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       <div className="container mx-auto max-w-5xl">
         {/* Main Content */}
         {!isConnected ? (
@@ -72,7 +72,7 @@ function Home() {
               </p>
               <Button
                 onClick={() => open()}
-                className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 py-6 text-lg font-medium shadow-lg hover:from-blue-600 hover:to-indigo-700"
+                className="w-full bg-linear-to-r from-blue-500 to-indigo-600 py-6 text-lg font-medium shadow-lg hover:from-blue-600 hover:to-indigo-700"
                 size="lg"
               >
                 <Wallet className="mr-2 h-5 w-5" />
@@ -80,7 +80,7 @@ function Home() {
               </Button>
               <div className="mt-6 space-y-3 rounded-lg bg-slate-50 p-4 dark:bg-slate-800">
                 <div className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-                  <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0" />
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                   <span>
                     Make sure you have a Web3 wallet installed (MetaMask,
                     WalletConnect, etc.)
@@ -176,7 +176,7 @@ function Home() {
               </div>
 
               {/* Balance Card */}
-              <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-emerald-50 to-teal-50 p-6 shadow-lg dark:border-slate-800 dark:from-emerald-900/20 dark:to-teal-900/20">
+              <div className="rounded-2xl border border-slate-200 bg-linear-to-br from-emerald-50 to-teal-50 p-6 shadow-lg dark:border-slate-800 dark:from-emerald-900/20 dark:to-teal-900/20">
                 <div className="mb-4 flex items-center gap-2">
                   <Zap className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                   <h3 className="font-semibold text-slate-900 dark:text-white">
@@ -249,7 +249,7 @@ function Home() {
             </div>
 
             {/* Actions Section */}
-            <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 shadow-lg dark:border-slate-800 dark:from-blue-900/20 dark:to-indigo-900/20">
+            <div className="rounded-2xl border border-slate-200 bg-linear-to-r from-blue-50 to-indigo-50 p-6 shadow-lg dark:border-slate-800 dark:from-blue-900/20 dark:to-indigo-900/20">
               <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">
                 Quick Actions
               </h3>
