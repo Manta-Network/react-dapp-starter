@@ -1,34 +1,38 @@
-import { useTheme } from 'next-themes';
-import { Toaster as Sonner, ToasterProps } from 'sonner';
+import {
+  CircleCheckIcon,
+  InfoIcon,
+  Loader2Icon,
+  OctagonXIcon,
+  TriangleAlertIcon,
+} from "lucide-react"
+import { useTheme } from "next-themes"
+import { Toaster as Sonner, type ToasterProps } from "sonner"
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme();
+  const { theme = "system" } = useTheme()
 
   return (
     <Sonner
-      theme={theme as ToasterProps['theme']}
+      theme={theme as ToasterProps["theme"]}
       className="toaster group"
-      toastOptions={{
-        classNames: {
-          toast:
-            'group toast group-[.toaster]:border! group-[.toaster]:shadow-lg!',
-          error:
-            'group-[.toaster]:bg-[#f00]! group-[.toaster]:text-white! group-[.toaster]:border-none! ',
-          success:
-            'group-[.toaster]:bg-[#00BF50]! group-[.toaster]:text-white! group-[.toaster]:border-none!',
-          warning:
-            'group-[.toaster]:bg-[hsl(49,100%,97%)]! group-[.toaster]:text-[hsl(31,92%,45%)]! group-[.toaster]:border-[hsl(49,91%,91%)]!',
-          info: 'group-[.toaster]:bg-[hsl(208,100%,97%)]! group-[.toaster]:text-[hsl(210,92%,45%)]! group-[.toaster]:border-[hsl(221,91%,91%)]!',
-          description: 'group-[.toast]:text-muted-foreground',
-          actionButton:
-            'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground font-medium',
-          cancelButton:
-            'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground font-medium',
-        },
+      icons={{
+        success: <CircleCheckIcon className="size-4" />,
+        info: <InfoIcon className="size-4" />,
+        warning: <TriangleAlertIcon className="size-4" />,
+        error: <OctagonXIcon className="size-4" />,
+        loading: <Loader2Icon className="size-4 animate-spin" />,
       }}
+      style={
+        {
+          "--normal-bg": "var(--popover)",
+          "--normal-text": "var(--popover-foreground)",
+          "--normal-border": "var(--border)",
+          "--border-radius": "var(--radius)",
+        } as React.CSSProperties
+      }
       {...props}
     />
-  );
-};
+  )
+}
 
-export { Toaster };
+export { Toaster }

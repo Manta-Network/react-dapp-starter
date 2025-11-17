@@ -1,21 +1,14 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 import MantaNetworkLogo from '@/assets/manta-network-logo.svg';
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuContent,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
   SheetTitle,
+  SheetClose,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -27,33 +20,14 @@ const navigation = [
     href: '/',
   },
   {
-    title: 'Profile',
-    children: [
-      { title: 'History', href: '/history' },
-      { title: 'Settings', href: '/setting' },
-    ],
+    title: 'Page1',
+    href: '/page1',
+  },
+  {
+    title: 'Page2',
+    href: '/page2',
   },
 ];
-
-const ListItem = ({
-  title,
-  href,
-  active,
-}: {
-  title: string;
-  href: string;
-  active?: boolean;
-}) => (
-  <Link
-    to={href}
-    className={cn(
-      'hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block rounded-md p-3 leading-none no-underline transition-colors outline-none select-none',
-      active && 'bg-accent text-accent-foreground'
-    )}
-  >
-    <div className="text-sm leading-none font-medium">{title}</div>
-  </Link>
-);
 
 const MantaLogo = () => (
   <a
@@ -78,48 +52,47 @@ const MobileNav = ({
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hover:bg-slate-100 md:hidden dark:hover:bg-slate-800"
+        >
           <Menu className="h-5 w-5" />
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-full">
-        <SheetTitle className="hidden">menu</SheetTitle>
-        <nav className="mt-4 flex flex-col space-y-4">
+      <SheetContent
+        side="left"
+        className="w-[280px] border-0 bg-white p-0 dark:bg-slate-900"
+        showClose={false}
+      >
+        <SheetTitle className="flex items-center justify-between border-b border-slate-200 p-4 text-lg font-semibold text-slate-900 dark:border-slate-800 dark:text-white">
+          Menu
+          <SheetClose asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          </SheetClose>
+        </SheetTitle>
+        <nav className="flex flex-col gap-1 p-4">
           {navigation.map(item => (
-            <div key={item.title} className="space-y-3">
-              {item.href ? (
-                <Link
-                  to={item.href}
-                  className={cn(
-                    'text-lg font-medium',
-                    location.pathname === item.href && 'text-primary'
-                  )}
-                  onClick={() => onOpenChange(false)}
-                >
-                  {item.title}
-                </Link>
-              ) : (
-                <div className="text-lg font-medium">{item.title}</div>
+            <Link
+              key={item.title}
+              to={item.href}
+              className={cn(
+                'rounded-lg px-4 py-3 text-base font-medium transition-all',
+                location.pathname === item.href
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
               )}
-              {item.children && (
-                <div className="space-y-2 pl-4">
-                  {item.children.map(child => (
-                    <Link
-                      key={child.title}
-                      to={child.href}
-                      className={cn(
-                        'text-muted-foreground hover:text-primary block',
-                        location.pathname === child.href && 'text-primary'
-                      )}
-                      onClick={() => onOpenChange(false)}
-                    >
-                      {child.title}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+              onClick={() => onOpenChange(false)}
+            >
+              {item.title}
+            </Link>
           ))}
         </nav>
       </SheetContent>
@@ -131,41 +104,25 @@ const DesktopNav = () => {
   const location = useLocation();
 
   return (
-    <NavigationMenu className="ml-6">
-      <NavigationMenuList>
-        {navigation.map(item => (
-          <NavigationMenuItem key={item.title}>
-            {item.children ? (
-              <>
-                <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[200px] gap-3 p-4">
-                    {item.children.map(child => (
-                      <ListItem
-                        key={child.title}
-                        title={child.title}
-                        href={child.href}
-                        active={location.pathname === child.href}
-                      />
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </>
-            ) : (
-              <Link
-                to={item.href}
-                className={cn(
-                  navigationMenuTriggerStyle(),
-                  location.pathname === item.href && 'text-primary'
-                )}
-              >
-                {item.title}
-              </Link>
-            )}
-          </NavigationMenuItem>
-        ))}
-      </NavigationMenuList>
-    </NavigationMenu>
+    <nav className="ml-8 hidden md:flex md:items-center md:gap-1">
+      {navigation.map(item => (
+        <Link
+          key={item.title}
+          to={item.href}
+          className={cn(
+            'relative px-4 py-2 text-sm font-medium transition-colors',
+            location.pathname === item.href
+              ? 'text-primary'
+              : 'hover:text-primary dark:hover:text-primary text-slate-700 dark:text-slate-300'
+          )}
+        >
+          {item.title}
+          {location.pathname === item.href && (
+            <span className="bg-primary absolute right-0 bottom-0 left-0 h-0.5" />
+          )}
+        </Link>
+      ))}
+    </nav>
   );
 };
 
@@ -174,7 +131,7 @@ export default function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b px-6 backdrop-blur">
+    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40 w-full border-b px-6 backdrop-blur">
       <div className="container flex h-14 items-center justify-between md:justify-start">
         <MantaLogo />
         {isMobile ? (
