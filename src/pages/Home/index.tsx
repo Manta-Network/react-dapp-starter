@@ -33,8 +33,6 @@ function Home() {
   });
   const [copied, setCopied] = useState(false);
 
-  console.log('test', balance);
-
   const handleCopyAddress = async () => {
     if (address) {
       await navigator.clipboard.writeText(address);
