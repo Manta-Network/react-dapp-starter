@@ -9,6 +9,9 @@ import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import AppRouter from './AppRouter.tsx';
 import config from './config/index.ts';
 import './index.css';
+import { initResponsive } from './lib/responsive.ts';
+
+initResponsive();
 
 // 0. Setup queryClient
 const queryClient = new QueryClient();
